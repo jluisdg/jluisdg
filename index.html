@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>La_Kinelita</title>
+	<link href="styles/style.css" rel="stylesheet" type="text/css">
+	<link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet"> 
+  </head>
+  <body background="images/background2.jpg">
+	
+
+	<h1><img src="images/rusia_logo2.png" alt="RusiaLogo" style="float:left;width:180px;height:180px;"> La Kinelita de CC </h1>
+	<p> Bienvienido a la kinelita de CC, la página donde encontrarás los puntajes de todos los participantes de la quinela </p>
+	<p> Reglas: Se pueden acumular puntos de 2 maneras distintas: Si adivinas quien gana obtienes 1 punto, Si adivinas el marcador obtienes 3 puntos </p>
+	<a href="https://resultados.as.com/resultados/futbol/mundial/2018/calendario/dias/">Rusia 2018</a>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script>
+	
+	$.ajax({
+  url: 'resultados.csv',
+  dataType: 'text',
+}).done(successFunction);
+
+	function successFunction(data) {
+  var allRows = data.split(/\r?\n|\r/);
+  var table = '<table>';
+  for (var singleRow = 0; singleRow < allRows.length; singleRow++) {
+    if (singleRow === 0) {
+      table += '<thead>';
+      table += '<tr>';
+    } else {
+      table += '<tr>';
+    }
+    var rowCells = allRows[singleRow].split(',');
+    for (var rowCell = 0; rowCell < rowCells.length; rowCell++) {
+      if (singleRow === 0) {
+        table += '<th>';
+        table += rowCells[rowCell];
+        table += '</th>';
+      } else {
+        table += '<td>';
+        table += rowCells[rowCell];
+        table += '</td>';
+      }
+    }
+    if (singleRow === 0) {
+      table += '</tr>';
+      table += '</thead>';
+      table += '<tbody>';
+    } else {
+      table += '</tr>';
+    }
+  } 
+  table += '</tbody>';
+  table += '</table>';
+  $('body').append(table);
+}
+</script>
+
+
+	
+	
+
+  </body>
+</html>
